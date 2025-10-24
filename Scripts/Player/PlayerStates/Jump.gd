@@ -1,12 +1,13 @@
 class_name PlayerJump
 extends PlayerState
 
-const MAX_JUMP_TIME: float = 0.28
+const MAX_JUMP_TIME: float = 0.265
 
 var can_jump_higher: bool = false
 var timer: Timer = null
 
 func Enter() -> void:
+	jump_remaining -= 1
 	is_jumping = true
 	jump_request = false
 	jump_request_timer.stop()
@@ -26,6 +27,9 @@ func Enter() -> void:
 	timer.start()
 
 func PhysicsUpdate(delta: float) ->void:
+	if Input.is_action_just_pressed("jump") and jump_remaining > 0:
+		jump_remaining -= 1
+		player.velocity.y = JUMP_VELOCITY
 	if can_jump_higher and Input.is_action_pressed("jump"):
 		player.velocity.y = JUMP_VELOCITY
 	else:

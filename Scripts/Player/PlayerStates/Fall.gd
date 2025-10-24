@@ -8,16 +8,19 @@ var can_coyote_jump: bool = false
 
 func Enter() -> void:
 	super.Enter()
-	coyote_jump_timer = Utils.create_timer(COYOTE_JUMP_TIME)
-	add_child(coyote_jump_timer)
+	if get_children().size() > 0:
+		coyote_jump_timer = get_child(0)
+	if !coyote_jump_timer or coyote_jump_timer is not Timer:
+		coyote_jump_timer = Utils.create_timer(COYOTE_JUMP_TIME)
+		add_child(coyote_jump_timer)
+		coyote_jump_timer.timeout.connect(_on_coyote_jump_timer_timeout)
 	coyote_jump_timer.start()
 	can_coyote_jump = true
-	coyote_jump_timer.timeout.connect(_on_coyote_jump_timer_timeout)
 	player_sprite.play("fall")
 
 func PhysicsUpdate(delta: float) ->void:
 	if Input.is_action_just_pressed("jump"):
-		if can_coyote_jump and not is_jumping:
+		if (can_coyote_jump and not is_jumping) or (jump_remaining > 0 and is_jumping):
 			TransitionState.emit(self, "jump")
 		jump_request = true
 		jump_request_timer.start()

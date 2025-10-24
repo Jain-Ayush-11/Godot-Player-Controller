@@ -2,7 +2,7 @@ class_name PlayerState
 extends State
 
 const SPEED: float = 200
-const JUMP_VELOCITY: float = -275.0
+const JUMP_VELOCITY: float = -250.0
 const FALL_GRAVITY: float = 1800
 const GRAVITY: float = 720
 
@@ -11,10 +11,14 @@ static var player_sprite: AnimatedSprite2D
 static var is_jumping: bool = false
 static var jump_request_timer: Timer
 static var jump_request: bool = false
+static var jump_remaining: int = PLAYER_JUMP_COUNT
+static var PLAYER_JUMP_COUNT: int
 
 func Enter() -> void:
 	if not player:
 		player = get_tree().get_first_node_in_group("player")
+		
+	PLAYER_JUMP_COUNT = player.JUMP_COUNT
 
 	var player_children = player.get_children()
 	if not player_sprite or not jump_request_timer:

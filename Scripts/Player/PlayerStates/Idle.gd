@@ -3,6 +3,8 @@ extends PlayerState
 
 func Enter() -> void:
 	super.Enter()
+	is_jumping = false
+	jump_remaining = PLAYER_JUMP_COUNT
 	player_sprite.play("idle")
 
 func PhysicsUpdate(delta: float) -> void:

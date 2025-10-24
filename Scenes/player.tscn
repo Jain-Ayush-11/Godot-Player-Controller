@@ -1,5 +1,6 @@
-[gd_scene load_steps=40 format=3 uid="uid://cx7u3id4gbvs"]
+[gd_scene load_steps=41 format=3 uid="uid://cx7u3id4gbvs"]
 
+[ext_resource type="Script" uid="uid://c0ylhmrmpgdej" path="res://Scripts/Player/player.gd" id="1_gymyn"]
 [ext_resource type="Texture2D" uid="uid://265drdaq7drf" path="res://Assets/Sprites/Player/_Attack.png" id="1_tx1dd"]
 [ext_resource type="Texture2D" uid="uid://dokcqig8jq7u3" path="res://Assets/Sprites/Player/_Idle.png" id="1_v0iea"]
 [ext_resource type="Texture2D" uid="uid://bxjigfdpsax22" path="res://Assets/Sprites/Player/_Fall.png" id="2_f1ek2"]
@@ -229,11 +230,13 @@ height = 32.0
 radius = 7.0
 
 [node name="Player" type="CharacterBody2D" groups=["player"]]
+script = ExtResource("1_gymyn")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 sprite_frames = SubResource("SpriteFrames_oikmp")
-animation = &"fall"
+animation = &"attack"
 autoplay = "idle"
+frame_progress = 0.10123914
 offset = Vector2(0, -20)
 
 [node name="NormalCollisionShape" type="CollisionShape2D" parent="."]
