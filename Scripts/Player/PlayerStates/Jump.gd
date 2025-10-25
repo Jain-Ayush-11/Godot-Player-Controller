@@ -7,12 +7,12 @@ var can_jump_higher: bool = false
 var timer: Timer = null
 
 func Enter() -> void:
-	jump_remaining -= 1
+	super.Enter()
+
 	is_jumping = true
 	jump_request = false
 	jump_request_timer.stop()
 
-	super.Enter()
 	if get_children().size() > 0:
 		timer = get_child(0)
 	
@@ -22,29 +22,41 @@ func Enter() -> void:
 		timer.timeout.connect(_on_timer_timeout)
 	
 	player_sprite.play("jump")
+	if jump_remaining != PLAYER_JUMP_COUNT:
+		_create_jump_burst_effect()
+	jump_remaining -= 1
 	player.velocity.y = JUMP_VELOCITY
 	can_jump_higher = true
 	timer.start()
 
 func PhysicsUpdate(delta: float) ->void:
+	if not jump_burst_sprite.is_playing():
+		jump_burst_sprite.visible = false
+
 	if Input.is_action_just_pressed("jump") and jump_remaining > 0:
 		jump_remaining -= 1
-		player.velocity.y = JUMP_VELOCITY
+		TransitionState.emit("jump")
+
 	if can_jump_higher and Input.is_action_pressed("jump"):
 		player.velocity.y = JUMP_VELOCITY
 	else:
 		player.velocity.y += GRAVITY * delta
-	var direction := Input.get_axis("move_left", "move_right")
-	if direction:
-		player_sprite.flip_h = true if direction < 0 else false
-		player.velocity.x = direction * SPEED
-	else:
-		player.velocity.x = move_toward(player.velocity.x, 0, SPEED)
+
+	_move_player()
 
 	player.move_and_slide()
 
+
 	if player.velocity.y >= 0:
-		TransitionState.emit(self, "fall")
+		TransitionState.emit("fall")
 
 func _on_timer_timeout() -> void:
 	can_jump_higher = false
+
+func _create_jump_burst_effect() -> void:
+	jump_burst_sprite.flip_h = player_sprite.flip_h
+	jump_burst_sprite.offset.x = JUMP_BURST_SPRITE_OFFSET
+	if jump_burst_sprite.flip_h:
+		jump_burst_sprite.offset.x *= -1
+	jump_burst_sprite.visible = true
+	jump_burst_sprite.play("default")

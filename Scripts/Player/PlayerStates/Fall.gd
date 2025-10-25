@@ -21,24 +21,24 @@ func Enter() -> void:
 func PhysicsUpdate(delta: float) ->void:
 	if Input.is_action_just_pressed("jump"):
 		if (can_coyote_jump and not is_jumping) or (jump_remaining > 0 and is_jumping):
-			TransitionState.emit(self, "jump")
+			TransitionState.emit("jump")
+		elif jump_remaining - 1 > 0 and not is_jumping:
+			jump_remaining -= 1
+			TransitionState.emit("jump")
 		jump_request = true
 		jump_request_timer.start()
 
+
 	player.velocity.y += FALL_GRAVITY * delta
-	var direction := Input.get_axis("move_left", "move_right")
-	if direction:
-		player_sprite.flip_h = true if direction < 0 else false
-		player.velocity.x = direction * SPEED
-	else:
-		player.velocity.x = move_toward(player.velocity.x, 0, SPEED)
+	_move_player()
 	player.move_and_slide()
 	
+	var direction = Input.get_axis("move_left", "move_right")
+	var player_direction = -1 if player_sprite.flip_h else 1
+	if player.is_on_wall() and direction == player_direction:
+		TransitionState.emit("wallslide")
 	if player.is_on_floor():
-		if direction:
-			TransitionState.emit(self, "run")
-		else:
-			TransitionState.emit(self, "idle")
+		TransitionState.emit("idle")
 
 func Exit() -> void:
 	is_jumping = false

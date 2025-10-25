@@ -1,4 +1,4 @@
-[gd_scene load_steps=48 format=3 uid="uid://cx7u3id4gbvs"]
+[gd_scene load_steps=46 format=3 uid="uid://cx7u3id4gbvs"]
 
 [ext_resource type="Script" uid="uid://c0ylhmrmpgdej" path="res://Scripts/Player/player.gd" id="1_gymyn"]
 [ext_resource type="Texture2D" uid="uid://265drdaq7drf" path="res://Assets/Sprites/Player/_Attack.png" id="1_tx1dd"]
@@ -9,11 +9,10 @@
 [ext_resource type="Script" uid="uid://c03vrn72ttv6h" path="res://Scripts/StateMachine/StateMachine.gd" id="4_vgqql"]
 [ext_resource type="Script" uid="uid://tvc8286ga7ei" path="res://Scripts/Player/PlayerStates/Run.gd" id="5_fkybt"]
 [ext_resource type="Script" uid="uid://bj6s5vocs40f0" path="res://Scripts/Player/PlayerStates/Idle.gd" id="6_x3wgy"]
-[ext_resource type="Texture2D" uid="uid://c40bp5git46as" path="res://Assets/Sprites/Player/_WallSlide.png" id="7_h4iuc"]
 [ext_resource type="Script" uid="uid://b4cxtt6xkp552" path="res://Scripts/Player/PlayerStates/Jump.gd" id="8_8erm5"]
 [ext_resource type="Script" uid="uid://5pjqndm1j76t" path="res://Scripts/Player/PlayerStates/Fall.gd" id="10_tx1dd"]
+[ext_resource type="Texture2D" uid="uid://edshxj4hrqv0" path="res://Assets/Sprites/Player/DoubleJumpEffect/01.png" id="12_h4iuc"]
 [ext_resource type="Texture2D" uid="uid://dwgiidyhc2xxb" path="res://Assets/Sprites/Player/DoubleJumpEffect/02.png" id="13_fd4e3"]
-[ext_resource type="Script" uid="uid://bpa7dltkewvmk" path="res://Scripts/Player/PlayerStates/WallSlide.gd" id="13_qqcod"]
 [ext_resource type="Texture2D" uid="uid://bmnejvg1mbhln" path="res://Assets/Sprites/Player/DoubleJumpEffect/03.png" id="14_qqcod"]
 [ext_resource type="Texture2D" uid="uid://bnn38j4ety7j3" path="res://Assets/Sprites/Player/DoubleJumpEffect/04.png" id="15_igrcy"]
 
@@ -121,10 +120,6 @@ region = Rect2(960, 0, 120, 80)
 atlas = ExtResource("3_6t5aa")
 region = Rect2(1080, 0, 120, 80)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_11gg7"]
-atlas = ExtResource("7_h4iuc")
-region = Rect2(0, 0, 120, 80)
-
 [sub_resource type="SpriteFrames" id="SpriteFrames_oikmp"]
 animations = [{
 "frames": [{
@@ -229,14 +224,6 @@ animations = [{
 "loop": true,
 "name": &"run",
 "speed": 12.0
-}, {
-"frames": [{
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_11gg7")
-}],
-"loop": true,
-"name": &"wall_slide",
-"speed": 5.0
 }]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_06tpx"]
@@ -250,6 +237,9 @@ radius = 7.0
 animations = [{
 "frames": [{
 "duration": 1.0,
+"texture": ExtResource("12_h4iuc")
+}, {
+"duration": 1.0,
 "texture": ExtResource("13_fd4e3")
 }, {
 "duration": 1.0,
@@ -258,9 +248,9 @@ animations = [{
 "duration": 1.0,
 "texture": ExtResource("15_igrcy")
 }],
-"loop": false,
+"loop": true,
 "name": &"default",
-"speed": 15.0
+"speed": 8.0
 }]
 
 [node name="Player" type="CharacterBody2D" groups=["player"]]
@@ -268,15 +258,17 @@ script = ExtResource("1_gymyn")
 
 [node name="PlayerSprite" type="AnimatedSprite2D" parent="."]
 sprite_frames = SubResource("SpriteFrames_oikmp")
-animation = &"run"
+animation = &"jump"
 autoplay = "idle"
 offset = Vector2(0, -20)
 
 [node name="NormalCollisionShape" type="CollisionShape2D" parent="."]
+visible = false
 position = Vector2(-4, 4)
 shape = SubResource("CapsuleShape2D_06tpx")
 
 [node name="AttackCollisionShape" type="CollisionShape2D" parent="."]
+visible = false
 position = Vector2(5, 4)
 shape = SubResource("CapsuleShape2D_tx1dd")
 disabled = true
@@ -301,19 +293,14 @@ metadata/_custom_type_script = "uid://b4cxtt6xkp552"
 script = ExtResource("10_tx1dd")
 metadata/_custom_type_script = "uid://5pjqndm1j76t"
 
-[node name="WallSlide" type="Node" parent="StateMachine"]
-script = ExtResource("13_qqcod")
-metadata/_custom_type_script = "uid://bpa7dltkewvmk"
-
 [node name="JumpRequestTimer" type="Timer" parent="."]
 wait_time = 0.25
 one_shot = true
 
 [node name="JumpBurstSprite" type="AnimatedSprite2D" parent="."]
 visible = false
-position = Vector2(-4.7683716e-07, 36)
+position = Vector2(-7, 30)
 scale = Vector2(0.04239071, 0.07031249)
 sprite_frames = SubResource("SpriteFrames_fs7ks")
 frame = 2
-frame_progress = 1.0
-offset = Vector2(-165, 0)
+frame_progress = 0.5294329

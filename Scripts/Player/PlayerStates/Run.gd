@@ -12,7 +12,7 @@ func Enter() -> void:
 func PhysicsUpdate(delta: float) ->void:
 	var direction := Input.get_axis("move_left", "move_right")
 	if direction:
-		player_sprite.flip_h = true if direction < 0 else false
+		_flip_player(direction)
 		player.velocity.x = move_toward(
 			player.velocity.x,
 			direction * SPEED,
@@ -26,14 +26,14 @@ func PhysicsUpdate(delta: float) ->void:
 		)
 		
 		if abs(player.velocity.x) <= IDLE_STATE_THRESHOLD:
-			TransitionState.emit(self, "idle")
+			TransitionState.emit("idle")
 
 	if (Input.is_action_just_pressed("jump") or jump_request) and player.is_on_floor():
-		TransitionState.emit(self, "jump")
+		TransitionState.emit("jump")
 
 
 	if !player.is_on_floor():
-		TransitionState.emit(self, "fall")
+		TransitionState.emit("fall")
 
 	player.move_and_slide()
 

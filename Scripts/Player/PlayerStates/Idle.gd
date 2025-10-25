@@ -10,11 +10,11 @@ func Enter() -> void:
 func PhysicsUpdate(delta: float) -> void:
 	var direction := Input.get_axis("move_left", "move_right")
 	if direction:
-		TransitionState.emit(self, "run")
+		TransitionState.emit("run")
 	player.move_and_slide()
 
 	if (Input.is_action_just_pressed("ui_accept") or jump_request) and player.is_on_floor():
-		TransitionState.emit(self, "jump")
+		TransitionState.emit("jump")
 
 	if !player.is_on_floor():
-		TransitionState.emit(self, "fall")
+		TransitionState.emit("fall")
