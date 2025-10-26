@@ -8,6 +8,7 @@ var timer: Timer = null
 
 func Enter() -> void:
 	super.Enter()
+	print(dash_left > 0)
 
 	is_jumping = true
 	jump_request = false
@@ -41,6 +42,8 @@ func PhysicsUpdate(delta: float) ->void:
 		player.velocity.y = JUMP_VELOCITY
 	else:
 		player.velocity.y += GRAVITY * delta
+	if Input.is_action_just_pressed("dash") and dash_left > 0:
+		TransitionState.emit("dash")
 
 	_move_player()
 

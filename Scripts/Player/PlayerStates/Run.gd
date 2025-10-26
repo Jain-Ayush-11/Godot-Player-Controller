@@ -34,6 +34,9 @@ func PhysicsUpdate(delta: float) ->void:
 
 	if !player.is_on_floor():
 		TransitionState.emit("fall")
+	if Input.is_action_just_pressed("dash") and dash_left > 0:
+		TransitionState.emit("dash")
+
 
 	player.move_and_slide()
 

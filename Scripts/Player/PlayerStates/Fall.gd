@@ -39,6 +39,8 @@ func PhysicsUpdate(delta: float) ->void:
 		TransitionState.emit("wallslide")
 	if player.is_on_floor():
 		TransitionState.emit("idle")
+	if Input.is_action_just_pressed("dash") and dash_left > 0:
+		TransitionState.emit("dash")
 
 func Exit() -> void:
 	is_jumping = false

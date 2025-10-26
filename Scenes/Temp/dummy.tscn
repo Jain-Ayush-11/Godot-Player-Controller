@@ -1,6 +1,6 @@
 [gd_scene load_steps=5 format=4 uid="uid://bii88nkjtqciv"]
 
-[ext_resource type="PackedScene" uid="uid://cx7u3id4gbvs" path="res://Scenes/player.tscn" id="1_x5j3u"]
+[ext_resource type="PackedScene" uid="uid://cx7u3id4gbvs" path="res://Scenes/Player/player.tscn" id="1_x5j3u"]
 [ext_resource type="Texture2D" uid="uid://cw3d1y03dkkdn" path="res://Assets/Sprites/World/Dev/PlatformTile.png" id="2_p5w8k"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_ipg4i"]
@@ -15,7 +15,7 @@ sources/0 = SubResource("TileSetAtlasSource_ipg4i")
 [node name="Node2D" type="Node2D"]
 
 [node name="Player" parent="." instance=ExtResource("1_x5j3u")]
-position = Vector2(50, -164)
+position = Vector2(32, -296)
 
 [node name="Camera2D" type="Camera2D" parent="Player"]
 zoom = Vector2(2, 2)
