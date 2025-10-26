@@ -5,11 +5,12 @@ const MAX_JUMP_TIME: float = 0.265
 
 var can_jump_higher: bool = false
 var timer: Timer = null
+var JUMP_VELOCITY: float
+
 
 func Enter() -> void:
 	super.Enter()
-	print(dash_left > 0)
-
+	JUMP_VELOCITY = player.JUMP_VELOCITY
 	is_jumping = true
 	jump_request = false
 	jump_request_timer.stop()
@@ -23,7 +24,7 @@ func Enter() -> void:
 		timer.timeout.connect(_on_timer_timeout)
 	
 	player_sprite.play("jump")
-	if jump_remaining != PLAYER_JUMP_COUNT:
+	if jump_remaining != player.JUMP_COUNT:
 		_create_jump_burst_effect()
 	jump_remaining -= 1
 	player.velocity.y = JUMP_VELOCITY

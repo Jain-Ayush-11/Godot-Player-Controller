@@ -5,8 +5,12 @@ const ACCELERATION: float = 1000.0
 const DECELERATION : float = 2000.0
 const IDLE_STATE_THRESHOLD: float = 5.0
 
+var SPEED: float
+
+
 func Enter() -> void:
 	super.Enter()
+	SPEED = player.SPEED
 	player_sprite.play("run")
 
 func PhysicsUpdate(delta: float) ->void:

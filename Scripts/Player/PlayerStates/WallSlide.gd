@@ -12,8 +12,8 @@ var initial_player_direction: int
 var pushback_input_disable_timer: Timer
 
 func Enter() -> void:
-	dash_left = DASH_COUNT
-	jump_remaining = PLAYER_JUMP_COUNT
+	dash_left = player.DASH_COUNT
+	jump_remaining = player.JUMP_COUNT
 	is_jumping = false
 
 	player.velocity.x = 0
