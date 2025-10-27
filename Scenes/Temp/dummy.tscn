@@ -1,8 +1,9 @@
-[gd_scene load_steps=6 format=4 uid="uid://bii88nkjtqciv"]
+[gd_scene load_steps=8 format=4 uid="uid://bii88nkjtqciv"]
 
 [ext_resource type="PackedScene" uid="uid://cx7u3id4gbvs" path="res://Scenes/Player/player.tscn" id="1_x5j3u"]
 [ext_resource type="Texture2D" uid="uid://cw3d1y03dkkdn" path="res://Assets/Sprites/World/Dev/PlatformTile.png" id="2_p5w8k"]
 [ext_resource type="PackedScene" uid="uid://bdng3xw0jbc5h" path="res://Scenes/Temp/dummy_enemy.tscn" id="3_ipg4i"]
+[ext_resource type="Script" uid="uid://dko7njdqjo0j3" path="res://Scripts/killzone.gd" id="4_duo2w"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_ipg4i"]
 texture = ExtResource("2_p5w8k")
@@ -12,6 +13,8 @@ texture = ExtResource("2_p5w8k")
 [sub_resource type="TileSet" id="TileSet_duo2w"]
 physics_layer_0/collision_layer = 1
 sources/0 = SubResource("TileSetAtlasSource_ipg4i")
+
+[sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_xvm8t"]
 
 [node name="Node2D" type="Node2D"]
 
@@ -30,3 +33,10 @@ tile_set = SubResource("TileSet_duo2w")
 
 [node name="DummyEnemy" parent="." groups=["damagable"] instance=ExtResource("3_ipg4i")]
 position = Vector2(-216, -156)
+
+[node name="Area2D" type="Area2D" parent="."]
+position = Vector2(11, 406)
+script = ExtResource("4_duo2w")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+shape = SubResource("WorldBoundaryShape2D_xvm8t")
