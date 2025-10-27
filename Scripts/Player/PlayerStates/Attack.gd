@@ -69,5 +69,7 @@ func _on_player_sprite_animation_finished() -> void:
 
 
 func _on_attack_hit_box_area_body_entered(body: Node2D) -> void:
+	print(body)
 	if body.is_in_group("damagable"):
+		print("here")
 		player.attack_hit.emit(body, player.PRIMARY_ATTACK_POWER)

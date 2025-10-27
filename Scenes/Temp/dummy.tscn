@@ -17,7 +17,7 @@ sources/0 = SubResource("TileSetAtlasSource_ipg4i")
 
 [node name="Player" parent="." instance=ExtResource("1_x5j3u")]
 unique_name_in_owner = true
-position = Vector2(32, -296)
+position = Vector2(-125, -164)
 
 [node name="Camera2D" type="Camera2D" parent="Player"]
 zoom = Vector2(2, 2)
@@ -29,4 +29,4 @@ tile_map_data = PackedByteArray("AADs/wQAAAAAAAAAAADs/wUAAAAAAAAAAADs/wYAAAAAAAA
 tile_set = SubResource("TileSet_duo2w")
 
 [node name="DummyEnemy" parent="." groups=["damagable"] instance=ExtResource("3_ipg4i")]
-position = Vector2(-216, -177)
+position = Vector2(-216, -156)

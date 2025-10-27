@@ -16,7 +16,7 @@ func _ready() -> void:
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
 	if health <= 0:
-		print("DEAD")
+		visible = false
 
 func on_player_attack_hit(body: Node2D, damage: float):
 	if body == self:

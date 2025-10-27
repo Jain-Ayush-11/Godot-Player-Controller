@@ -36,7 +36,7 @@ func Enter() -> void:
 func PhysicsUpdate(delta: float) ->void:
 	if is_dashing:
 		var direction = 1 if is_player_facing_right else -1
-		player.velocity.x = direction * player.PLAYER_DASH_SPEED
+		player.velocity.x = direction * player.DASH_SPEED
 		player.velocity.y = 0
 		_spawn_trail(delta)
 		player.move_and_slide()
