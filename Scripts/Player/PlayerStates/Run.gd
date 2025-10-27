@@ -34,12 +34,12 @@ func PhysicsUpdate(delta: float) ->void:
 
 	if (Input.is_action_just_pressed("jump") or jump_request) and player.is_on_floor():
 		TransitionState.emit("jump")
-
-
 	if !player.is_on_floor():
 		TransitionState.emit("fall")
 	if Input.is_action_just_pressed("dash") and dash_left > 0:
 		TransitionState.emit("dash")
+	if Input.is_action_just_pressed("attack"):
+		TransitionState.emit("attack")
 
 
 	player.move_and_slide()

@@ -43,6 +43,11 @@ func Enter() -> void:
 		_secondary_attack_hit_box.disabled = true
 
 
+func PhysicsUpdate(delta: float) ->void:
+	player.velocity.y += GRAVITY * delta
+	player.move_and_slide()
+
+
 func Exit() -> void:
 	player_normal_collision_shape.disabled = false
 	player_attack_collision_shape.disabled = true
@@ -57,7 +62,10 @@ func Exit() -> void:
 
 
 func _on_player_sprite_animation_finished() -> void:
-	TransitionState.emit("idle")
+	if player.is_on_floor():
+		TransitionState.emit("idle")
+	else:
+		TransitionState.emit("fall")
 
 
 func _on_attack_hit_box_area_body_entered(body: Node2D) -> void:

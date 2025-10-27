@@ -41,6 +41,8 @@ func PhysicsUpdate(delta: float) ->void:
 		TransitionState.emit("idle")
 	if Input.is_action_just_pressed("dash") and dash_left > 0:
 		TransitionState.emit("dash")
+	if Input.is_action_just_pressed("attack"):
+		TransitionState.emit("attack")
 
 func Exit() -> void:
 	is_jumping = false

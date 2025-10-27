@@ -45,14 +45,18 @@ func PhysicsUpdate(delta: float) ->void:
 		player.velocity.y += GRAVITY * delta
 	if Input.is_action_just_pressed("dash") and dash_left > 0:
 		TransitionState.emit("dash")
+	if Input.is_action_just_pressed("attack"):
+		TransitionState.emit("attack")
 
 	_move_player()
-
 	player.move_and_slide()
-
 
 	if player.velocity.y >= 0:
 		TransitionState.emit("fall")
+
+
+func Exit() -> void:
+	jump_burst_sprite.visible = false
 
 func _on_timer_timeout() -> void:
 	can_jump_higher = false
