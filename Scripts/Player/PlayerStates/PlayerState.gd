@@ -16,6 +16,7 @@ static var attack_hit_box_area: Area2D
 static var is_player_facing_right: bool = true
 static var is_jumping: bool = false
 static var is_dashing: bool = false
+static var is_invulnerable: bool = false
 
 static var jump_request: bool = false
 static var jump_remaining: int
@@ -65,10 +66,12 @@ func _flip_player(direction: float) -> void:
 	player_sprite.flip_h = true if direction < 0 else false
 
 	if direction > 0:
-		player_normal_collision_shape.position.x = abs(player_normal_collision_shape.position.x)
+		player_sprite.offset.x = abs(player_sprite.offset.x)
+		player_normal_collision_shape.position.x = -abs(player_normal_collision_shape.position.x)
 		player_attack_collision_shape.position.x = abs(player_attack_collision_shape.position.x)
 		attack_hit_box_area.scale.x = 1
 	else:
-		player_normal_collision_shape.position.x = -abs(player_normal_collision_shape.position.x)
+		player_sprite.offset.x = -abs(player_sprite.offset.x)
+		player_normal_collision_shape.position.x = abs(player_normal_collision_shape.position.x)
 		player_attack_collision_shape.position.x = -abs(player_attack_collision_shape.position.x)
 		attack_hit_box_area.scale.x = -1

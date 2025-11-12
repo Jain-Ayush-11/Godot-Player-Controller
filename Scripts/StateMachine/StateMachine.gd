@@ -1,3 +1,4 @@
+class_name StateMachine
 extends Node
 
 @export var initial_state: State
@@ -14,6 +15,7 @@ func _ready() -> void:
 			state.TransitionState.connect(_on_state_transition_state)
 	
 	if initial_state:
+		await get_tree().process_frame  # wait one frame for parent _ready() to finish for onready vars
 		_current_state = initial_state
 		_current_state.Enter()
 
@@ -36,5 +38,6 @@ func _on_state_transition_state(new_state_name: String) -> void:
 	if _current_state:
 		_current_state.Exit()
 	
+	await get_tree().process_frame  # wait one frame for parent _ready() to finish for onready vars
 	new_state.Enter() 
 	_current_state = new_state

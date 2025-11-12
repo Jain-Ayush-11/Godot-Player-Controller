@@ -12,14 +12,15 @@ var initial_player_direction: int
 var pushback_input_disable_timer: Timer
 
 func Enter() -> void:
+	super.Enter()
 	dash_left = player.DASH_COUNT
 	jump_remaining = player.JUMP_COUNT
 	is_jumping = false
 
 	player.velocity.x = 0
 	player_sprite_flip_val = player_sprite.flip_h
-	player_sprite.flip_h = not player_sprite_flip_val
 	wall_dir = -1 if player_sprite_flip_val else 1
+	_flip_player(-wall_dir)
 	initial_player_direction = wall_dir
 	if !pushback_input_disable_timer:
 		pushback_input_disable_timer = Utils.create_timer(PUSHBACK_INPUT_DISABLE_WAIT_TIME)

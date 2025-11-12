@@ -10,7 +10,7 @@ config_version=5
 
 [application]
 
-config/name="PlayerController"
+config/name="EnemyController"
 run/main_scene="uid://bii88nkjtqciv"
 config/features=PackedStringArray("4.5", "Forward Plus")
 config/icon="res://icon.svg"
@@ -23,6 +23,11 @@ Constants="*res://Scripts/Others/Constants.gd"
 [display]
 
 window/stretch/mode="viewport"
+
+[global_group]
+
+enemy=""
+damagable=""
 
 [input]
 

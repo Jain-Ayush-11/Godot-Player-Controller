@@ -1,4 +1,4 @@
-[gd_scene load_steps=59 format=3 uid="uid://cx7u3id4gbvs"]
+[gd_scene load_steps=60 format=3 uid="uid://cx7u3id4gbvs"]
 
 [ext_resource type="Script" uid="uid://c0ylhmrmpgdej" path="res://Scripts/Player/player.gd" id="1_gymyn"]
 [ext_resource type="Texture2D" uid="uid://265drdaq7drf" path="res://Assets/Sprites/Player/_Attack.png" id="1_tx1dd"]
@@ -36,6 +36,10 @@ region = Rect2(240, 0, 120, 80)
 [sub_resource type="AtlasTexture" id="AtlasTexture_rqdc0"]
 atlas = ExtResource("3_rcvs5")
 region = Rect2(360, 0, 120, 80)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_qr1w5"]
+atlas = ExtResource("3_rcvs5")
+region = Rect2(480, 0, 120, 80)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_gymyn"]
 atlas = ExtResource("1_tx1dd")
@@ -163,10 +167,13 @@ animations = [{
 }, {
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_rqdc0")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_qr1w5")
 }],
 "loop": false,
 "name": &"attack_primary",
-"speed": 20.0
+"speed": 15.0
 }, {
 "frames": [{
 "duration": 1.0,
@@ -183,7 +190,7 @@ animations = [{
 }],
 "loop": false,
 "name": &"attack_secondary",
-"speed": 17.0
+"speed": 13.0
 }, {
 "frames": [{
 "duration": 1.0,
@@ -277,7 +284,7 @@ animations = [{
 }],
 "loop": true,
 "name": &"run",
-"speed": 15.0
+"speed": 12.0
 }, {
 "frames": [{
 "duration": 1.0,
@@ -289,7 +296,7 @@ animations = [{
 }]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_06tpx"]
-radius = 7.0
+radius = 6.0
 height = 32.0
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_tx1dd"]
@@ -318,25 +325,24 @@ radius = 16.0
 height = 38.0
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_rcvs5"]
-radius = 16.0
+radius = 19.0
 height = 38.0
 
 [node name="Player" type="CharacterBody2D" groups=["player"]]
-collision_layer = 2
 script = ExtResource("1_gymyn")
 
 [node name="PlayerSprite" type="AnimatedSprite2D" parent="."]
 sprite_frames = SubResource("SpriteFrames_oikmp")
-animation = &"run"
+animation = &"idle"
 autoplay = "idle"
-offset = Vector2(3, -20)
+offset = Vector2(0, -20)
 
 [node name="NormalCollisionShape" type="CollisionShape2D" parent="."]
-position = Vector2(0, 4)
+position = Vector2(-5, 4)
 shape = SubResource("CapsuleShape2D_06tpx")
 
 [node name="AttackCollisionShape" type="CollisionShape2D" parent="."]
-position = Vector2(9, 4)
+position = Vector2(5, 4)
 shape = SubResource("CapsuleShape2D_tx1dd")
 disabled = true
 
@@ -386,15 +392,14 @@ frame_progress = 1.0
 offset = Vector2(-165, 0)
 
 [node name="AttackHitBox" type="Area2D" parent="."]
-collision_mask = 4
 
 [node name="SecondaryAttack" type="CollisionShape2D" parent="AttackHitBox"]
-position = Vector2(42, 0)
+position = Vector2(41, 0)
 shape = SubResource("CapsuleShape2D_aqm4k")
 disabled = true
 
 [node name="PrimaryAttack" type="CollisionShape2D" parent="AttackHitBox"]
-position = Vector2(36, 0)
+position = Vector2(39, 0)
 shape = SubResource("CapsuleShape2D_rcvs5")
 disabled = true
 
@@ -406,5 +411,5 @@ one_shot = true
 one_shot = true
 
 [node name="BlinkTimer" type="Timer" parent="."]
-wait_time = 0.08
+wait_time = 0.1
 one_shot = true

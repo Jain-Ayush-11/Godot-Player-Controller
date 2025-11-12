@@ -1,0 +1,66 @@
+[gd_scene load_steps=7 format=3 uid="uid://cuck3p1mxyjwu"]
+
+[ext_resource type="Texture2D" uid="uid://dse44becp11h2" path="res://Assets/Sprites/Enemy/Arrows.png" id="1_8ssno"]
+[ext_resource type="Script" uid="uid://berdoqdl3jckq" path="res://Scripts/Enemy/ArcherEnemy/arrow.gd" id="1_h7x8a"]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_h7x8a"]
+radius = 3.5
+height = 23.0
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_rrp76"]
+atlas = ExtResource("1_8ssno")
+region = Rect2(0, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_4j332"]
+atlas = ExtResource("1_8ssno")
+region = Rect2(32, 0, 32, 32)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_kds3t"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_rrp76")
+}],
+"loop": false,
+"name": &"primary",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_4j332")
+}],
+"loop": false,
+"name": &"secondary",
+"speed": 5.0
+}]
+
+[node name="Arrow" type="RigidBody2D"]
+collision_layer = 512
+collision_mask = 3
+mass = 0.001
+continuous_cd = 2
+contact_monitor = true
+max_contacts_reported = 10
+script = ExtResource("1_h7x8a")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(-0.5, 0.5)
+rotation = 1.5707964
+shape = SubResource("CapsuleShape2D_h7x8a")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+sprite_frames = SubResource("SpriteFrames_kds3t")
+animation = &"primary"
+autoplay = "primary"
+
+[node name="RayCastWall2" type="RayCast2D" parent="."]
+position = Vector2(10, 0)
+target_position = Vector2(10, 10)
+
+[node name="RayCastWall" type="RayCast2D" parent="."]
+position = Vector2(10, 0)
+target_position = Vector2(10, -10)
+
+[node name="DisappearTimer" type="Timer" parent="."]
+wait_time = 3.5
+one_shot = true

@@ -14,6 +14,7 @@ var time_left_for_next_image: float = 0.0
 
 func Enter() -> void:
 	super.Enter()
+	is_invulnerable = true
 	dash_left -= 1
 	if get_children().size() > 0:
 		dash_timer = get_child(0)
@@ -45,6 +46,7 @@ func PhysicsUpdate(delta: float) ->void:
 
 func Exit() -> void:
 	player_dash_after_images_parent.visible = false
+	is_invulnerable = false
 
 func _on_dash_timer_timeout() -> void:
 	is_dashing = false

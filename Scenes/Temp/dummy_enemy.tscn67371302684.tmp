@@ -1,10 +1,10 @@
 [gd_scene load_steps=13 format=3 uid="uid://bdng3xw0jbc5h"]
 
-[ext_resource type="Script" uid="uid://dvxlcp42iwunv" path="res://Scripts/Enemy/BasicEnemy/basic_enemy.gd" id="1_efamd"]
+[ext_resource type="Script" uid="uid://dvxlcp42iwunv" path="res://Scripts/Enemy/dummy_enemy.gd" id="1_efamd"]
 [ext_resource type="Texture2D" uid="uid://ctsendvvffroq" path="res://Assets/Sprites/Enemy/slime_green.png" id="1_r26j7"]
 [ext_resource type="Script" uid="uid://c03vrn72ttv6h" path="res://Scripts/StateMachine/StateMachine.gd" id="2_o6fij"]
-[ext_resource type="Script" uid="uid://dfrwanbc11g3b" path="res://Scripts/Enemy/BasicEnemy/BasicEnemyIdle.gd" id="3_n3mue"]
-[ext_resource type="Script" uid="uid://doyhcf076kviy" path="res://Scripts/Enemy/BasicEnemy/BasicEnemyAttack.gd" id="4_b8h5w"]
+[ext_resource type="Script" uid="uid://dfrwanbc11g3b" path="res://Scripts/Enemy/BasicEnemyStates/Idle.gd" id="3_n3mue"]
+[ext_resource type="Script" uid="uid://doyhcf076kviy" path="res://Scripts/Enemy/BasicEnemyStates/Attack.gd" id="4_b8h5w"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_r26j7"]
 atlas = ExtResource("1_r26j7")
@@ -38,7 +38,7 @@ animations = [{
 "texture": SubResource("AtlasTexture_b8h5w")
 }],
 "loop": true,
-"name": &"idle",
+"name": &"default",
 "speed": 7.0
 }]
 
@@ -55,8 +55,8 @@ script = ExtResource("1_efamd")
 
 [node name="Sprite" type="AnimatedSprite2D" parent="."]
 sprite_frames = SubResource("SpriteFrames_efamd")
-animation = &"idle"
-autoplay = "idle"
+autoplay = "default"
+frame = 2
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(0, 4)
@@ -90,7 +90,3 @@ collision_mask = 2
 [node name="CollisionShape2D" type="CollisionShape2D" parent="TouchHitBox"]
 position = Vector2(0, 3.5)
 shape = SubResource("RectangleShape2D_b8h5w")
-
-[node name="RayCastLedge" type="RayCast2D" parent="."]
-position = Vector2(8, 0)
-target_position = Vector2(0, 20)
