@@ -12,8 +12,11 @@ var player_dash_after_images_parent: Node2D
 var player_dash_image_pool: Array
 var time_left_for_next_image: float = 0.0
 
+@export var some: CharacterBody2D
+
 func Enter() -> void:
 	super.Enter()
+	print(player.position, " ", some.position)
 	is_invulnerable = true
 	dash_left -= 1
 	if get_children().size() > 0:
@@ -45,6 +48,7 @@ func PhysicsUpdate(delta: float) ->void:
 		TransitionState.emit("idle")
 
 func Exit() -> void:
+	#get_tree().paused = true
 	player_dash_after_images_parent.visible = false
 	is_invulnerable = false
 

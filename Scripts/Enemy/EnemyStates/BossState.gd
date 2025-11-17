@@ -1,25 +1,15 @@
-class_name EnemyState
+class_name BossState
 extends State
 
 var GRAVITY: float = 2000
 
-var enemy: Enemy
-var ray_cast_player: RayCast2D
+var enemy: BossEnemy
+static var player: Player
 
 func Enter() -> void:
 	enemy = get_parent().get_parent()	# State machine will always be a direct child of base node
-	ray_cast_player = enemy.ray_cast_player
+	player = enemy.player
 
-func PhysicsUpdate(delta: float) ->void:
-	if enemy.ray_cast_right.is_colliding():
-		enemy.direction = -1
-		_flip_enemy(enemy.direction)
-	if enemy.ray_cast_left.is_colliding():
-		enemy.direction = 1
-		_flip_enemy(enemy.direction)
-	if not enemy.ray_cast_ledge.is_colliding():
-		enemy.direction = -enemy.direction
-		_flip_enemy(enemy.direction)
 
 func _flip_enemy(direction: float) -> void:
 	enemy.sprite.flip_h = true if direction < 0 else false
@@ -28,6 +18,14 @@ func _flip_enemy(direction: float) -> void:
 	if direction < 0:
 		enemy.ray_cast_player.target_position.x = -abs(enemy.ray_cast_player.target_position.x)
 		enemy.ray_cast_ledge.position.x = -abs(enemy.ray_cast_ledge.position.x)
+		enemy.sprite.offset.x = -abs(enemy.sprite.offset.x)
+		enemy.attack_hit_box.scale.x = -1
 	else:
 		enemy.ray_cast_player.target_position.x = abs(enemy.ray_cast_player.target_position.x)
 		enemy.ray_cast_ledge.position.x = abs(enemy.ray_cast_ledge.position.x)
+		enemy.sprite.offset.x = abs(enemy.sprite.offset.x)
+		enemy.attack_hit_box.scale.x = 1
+
+
+func _apply_sprite_offset(value: float) -> void:
+	enemy.sprite.offset.x = value if enemy.is_facing_right else -value

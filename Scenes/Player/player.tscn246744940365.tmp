@@ -325,13 +325,6 @@ height = 54.0
 z_index = 20
 collision_layer = 2
 script = ExtResource("1_gymyn")
-JUMP_COUNT = null
-DASH_COUNT = null
-SPEED = null
-JUMP_VELOCITY = null
-DASH_SPEED = null
-HEALTH_POINT = null
-PRIMARY_ATTACK_POWER = null
 
 [node name="PlayerSprite" type="AnimatedSprite2D" parent="."]
 sprite_frames = SubResource("SpriteFrames_oikmp")
@@ -409,11 +402,4 @@ disabled = true
 
 [node name="KnockBackTimer" type="Timer" parent="."]
 wait_time = 0.25
-one_shot = true
-
-[node name="InvulnerableTimer" type="Timer" parent="."]
-one_shot = true
-
-[node name="BlinkTimer" type="Timer" parent="."]
-wait_time = 0.06
 one_shot = true

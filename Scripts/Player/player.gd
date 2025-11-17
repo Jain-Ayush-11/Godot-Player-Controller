@@ -37,15 +37,26 @@ func _physics_process(delta: float) -> void:
 			_knockback_direction.y = 1
 		velocity = Vector2(_knockback_direction.x*KNOCKBACK_FORCE_X, _knockback_direction.y*KNOCKBACK_FORCE_Y)
 
-func _on_self_take_damage(damage: float, knockback: bool = false, hit_direction: Vector2 = Vector2.ZERO):
+func _on_self_take_damage(damage: float, knockback: bool = false, hit_direction: Vector2 = Vector2.ZERO, make_pause: bool = false):
 	if not PlayerState.is_invulnerable:
 		HEALTH_POINT -= damage
+
+		if make_pause:
+			var original_color = modulate
+			get_tree().paused = true
+			modulate = Color(1000,1000,1000)
+			await get_tree().create_timer(0.2, true).timeout
+			modulate = original_color
+			get_tree().paused = false
+
 		PlayerState.is_invulnerable = true
 		collision_layer = 0
 		invulnerable_timer.start()
-		PlayerState.player_sprite.visible = !PlayerState.player_sprite.visible
 		blink_timer.start()
+		PlayerState.player_sprite.visible = !PlayerState.player_sprite.visible
+
 		print(HEALTH_POINT)
+
 		if knockback:
 			_knockback(hit_direction)
 

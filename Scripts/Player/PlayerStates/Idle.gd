@@ -2,9 +2,11 @@ class_name PlayerIdle
 extends PlayerState
 
 var DASH_COUNT: int
+@export var something: CharacterBody2D
 
 func Enter() -> void:
 	super.Enter()
+	print(player.position, " ", something.position)
 	DASH_COUNT = player.DASH_COUNT
 	if player.is_on_floor() or player.is_on_wall():
 		dash_left = DASH_COUNT

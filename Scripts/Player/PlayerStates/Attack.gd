@@ -14,6 +14,7 @@ func _ready() -> void:
 
 
 func Enter() -> void:
+	print("ATTACKING")
 	super.Enter()
 	player_normal_collision_shape.disabled = true
 	player_attack_collision_shape.disabled = false
@@ -37,13 +38,14 @@ func Enter() -> void:
 	else:
 		player_sprite.play("attack_primary")
 		_is_primary_attack = true
+	#print(_primary_attack_hit_box.position, " ", _secondary_attack_hit_box.position)
 
 
 func PhysicsUpdate(delta: float) ->void:
-	if _is_primary_attack and player_sprite.frame == 3:
+	if _is_primary_attack and player_sprite.frame == 3 and _primary_attack_hit_box.disabled:
 		_primary_attack_hit_box.disabled = false
 		_secondary_attack_hit_box.disabled = true
-	elif not _is_primary_attack and player_sprite.frame == 1:
+	elif not _is_primary_attack and player_sprite.frame == 1 and _secondary_attack_hit_box.disabled:
 		_primary_attack_hit_box.disabled = true
 		_secondary_attack_hit_box.disabled = false
 
@@ -72,5 +74,6 @@ func _on_player_sprite_animation_finished() -> void:
 
 
 func _on_attack_hit_box_area_body_entered(body: Node2D) -> void:
+	print(body)
 	if body.is_in_group("damagable"):
 		player.attack_hit.emit(body, player.PRIMARY_ATTACK_POWER)

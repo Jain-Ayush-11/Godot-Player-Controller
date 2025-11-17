@@ -39,5 +39,6 @@ func _on_state_transition_state(new_state_name: String) -> void:
 		_current_state.Exit()
 	
 	await get_tree().process_frame  # wait one frame for parent _ready() to finish for onready vars
+	print(self.get_parent(), " ", new_state)
 	new_state.Enter() 
 	_current_state = new_state
