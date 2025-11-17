@@ -28,9 +28,11 @@ func PhysicsUpdate(delta: float) ->void:
 		enemy.direction = -1
 	_flip_enemy(enemy.direction)
 	print("\n\nRUNNN ", enemy.position, " ", player.position, " ", enemy.direction)
-	#enemy.velocity.x = move_toward(enemy.velocity.x, enemy.direction*SPEED, ACCELERATION)
+	
+	enemy.velocity.x = enemy.direction * SPEED #this works
+	
 	enemy.velocity.y += GRAVITY * delta
-	#enemy.move_and_slide()
+	enemy.move_and_slide()
 
 
 func Exit() -> void:
